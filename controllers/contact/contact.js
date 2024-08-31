@@ -14,25 +14,20 @@ exports.postContact = async (req, res, next) => {
 
     const mailvalidator = await mailValidator(email)
     const parsedResponse = JSON.parse(mailvalidator)
-    if (parsedResponse.valid) {
 
-        try {
-            const mailSent = await mailSender(email, text);
-            console.log('value', mailSent);
-            res.json({ value: mailSent });
-        } catch (error) {
-            console.error('Error in postContact:', error);
-            res.status(500).json({ error: 'Internal server error' });
-        }
+
+    try {
+        const mailSent = await mailSender(email, text);
+        console.log('value', mailSent);
+        res.json({ value: mailSent });
+    } catch (error) {
+        console.error('Error in postContact:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 
-    else {
 
-        res.json({
-            statutV: false,
-            Validator: "Votre mail est potentiellement non valid veuillez reessayer avec un autre s'il vous plait"
-        })
-    }
+
+
 
 
 
